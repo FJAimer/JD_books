@@ -16,7 +16,7 @@ class JdbooksPipeline:
 
     def process_item(self, item, spider):
         if spider.name == 'Jbooks':
-            # item = dict(item)
+            item = dict(item)
             str_data = json.dumps(item, ensure_ascii=False) + '.\n'
             self.file.write(str_data)
         return item
