@@ -13,3 +13,8 @@ class JdbooksItem(scrapy.Item):
     big_category_link = scrapy.Field()
     small_category = scrapy.Field()
     small_category_link = scrapy.Field()
+
+    bookname = scrapy.Field()
+    author = scrapy.Field()
+    link = scrapy.Field()
+    price = scrapy.Field()

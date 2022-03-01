@@ -24,7 +24,8 @@ class JbooksSpider(scrapy.Spider):
             big_father_Category_id = int(data['fatherCategoryId'])
             big_category_id = int(data['categoryId'])
             # 大分类链接拼接 https://channel.jd.com/1713-3258.html
-            item['big_category_link'] = 'https://channel.jd.com/' + str(big_father_Category_id) + '-' + str(big_category_id) + '.html'
+            item['big_category_link'] = 'https://channel.jd.com/' + str(big_father_Category_id) + '-' + str(
+                big_category_id) + '.html'
 
             # 获取所有小分类数据列表
             small_data_list = data['sonList']
@@ -33,7 +34,25 @@ class JbooksSpider(scrapy.Spider):
                 small_father_Category_id = int(small_data['fatherCategoryId'])
                 small_category_id = int(small_data['categoryId'])
                 # 小分类链接拼接 https://list.jd.com/list.html?cat=1713,3258,3297
-                item['small_category_link'] = 'https://list.jd.com/list.html?cat=' + str(big_father_Category_id) + ',' + str(small_father_Category_id) + ',' + str(small_category_id)
-            
+                item['small_category_link'] = 'https://list.jd.com/list.html?cat=' + str(
+                    big_father_Category_id) + ',' + str(small_father_Category_id) + ',' + str(small_category_id)
+
                 yield item
+                # 模拟点击小分类连接
+                # print(item['small_category_link'])
+                # yield scrapy.Request(
+                #     url=item['small_category_link'],
+                #     meta={'books2022': item},
+                #     callback=self.parse_book_list,
+                # )
+
+    # 小分类图书页面解析函数
+    # def parse_book_list(self, response):
+    #     item = response.meta['books2022']
+    #     print(len(item))
+    #     # 获取所有图书列表
+    #     # book_list = response.xpath('//*[@id="J_goodsList"]/ul/li')
+    #     # print(len(book_list))
+    #     # for book in book_list:
+    #     yield item
 
